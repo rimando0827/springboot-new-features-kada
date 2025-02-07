@@ -1,0 +1,26 @@
+package com.example.samuraitravel.service;
+
+import org.springframework.stereotype.Service;
+
+import com.example.samuraitravel.repository.ReviewRepository;
+
+@Service
+public class ReviewService {
+	private final ReviewRepository reviewRepository;
+	
+	public ReviewService(ReviewRepository reviewRepository) {
+		this.reviewRepository = reviewRepository;
+	}
+	
+	@Transactional
+	public void create(ReviewForm reviewForm) {
+	       Review review = new review();        
+	       
+	       
+	       review.setReviewStar(ReviewForm.ReviewStar());                
+	       review.setThoughts(ReviewForm.getThoughts());
+	       
+	                   
+	       reviewRepository.save(review);
+
+}
