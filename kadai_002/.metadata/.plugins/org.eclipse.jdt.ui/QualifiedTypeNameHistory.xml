@@ -24,15 +24,18 @@
     <fullyQualifiedTypeName name="com.example.samuraitravel.form.ReviewForm"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.repository.HouseRepository"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.repository.UserRepository"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.entity.House"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.entity.User"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.repository.ReviewRepository"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.form.ReviewInputForm"/>
     <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
-    <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.entity.Review"/>
+    <fullyQualifiedTypeName name="com.example.samuraitravel.form.ReviewEditForm"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
+    <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
+    <fullyQualifiedTypeName name="org.springframework.validation.annotation.Validated"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.support.RedirectAttributes"/>
 </qualifiedTypeNameHistroy>

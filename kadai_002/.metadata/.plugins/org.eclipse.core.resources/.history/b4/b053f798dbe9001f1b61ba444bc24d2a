@@ -1,0 +1,76 @@
+package com.example.samuraitravel.controller;
+
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.samuraitravel.entity.House;
+import com.example.samuraitravel.entity.Review;
+import com.example.samuraitravel.entity.User;
+import com.example.samuraitravel.form.ReviewEditForm;
+import com.example.samuraitravel.form.ReviewInputForm;
+import com.example.samuraitravel.form.ReviewListForm;
+import com.example.samuraitravel.form.ReviewRegisterForm;
+import com.example.samuraitravel.repository.HouseRepository;
+import com.example.samuraitravel.repository.ReviewRepository;
+import com.example.samuraitravel.security.UserDetailsImpl;
+import com.example.samuraitravel.service.ReviewService;
+
+@Controller
+
+public class ReviewController {
+
+	private ReviewService reviewService;
+	private HouseRepository houseRepository;
+	private ReviewRepository reviewRepository;
+
+	public ReviewController(
+			ReviewService reviewService,
+			HouseRepository houseRepository,
+			ReviewRepository reviewRepository) {
+		this.reviewService = reviewService;
+		this.houseRepository = houseRepository;
+		this.reviewRepository = reviewRepository;
+	}
+    
+	@GetMapping("/houses/{id}/review/create")
+    public String create(@ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+        return "houses/{id}/review/new";
+    }
+        reviewService.create(reviewRegisterForm);
+        return "houses/show";
+	}
+	
+	@GetMapping("/houses/{houseId}/review/{reviewId}/edit")
+    public String edit(      @PathVariable(name="houseId") Integer houseId,
+            @PathVariable(name="reviewId") Integer reviewId, 
+            Model model) {
+       House house = houseRepository.getReferenceById(houseId);
+        Review review = reviewRepository.getReferenceById(reviewId);
+   	 ReviewEditForm reviewEditForm = new ReviewEditForm(review.getId(),review.getScore(),review.getContent());
+   	
+   	 model.addAttribute("house",house);
+   	 model.addAttribute("review",review);
+   	 model.addAttribute("reviewEditForm",reviewEditForm);
+   	 
+   	 
+   	 return "review/edit";
+  }
+	
+    
+}

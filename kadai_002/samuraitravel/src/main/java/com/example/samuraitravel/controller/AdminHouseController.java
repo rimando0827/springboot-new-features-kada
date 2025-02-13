@@ -24,6 +24,8 @@ import com.example.samuraitravel.service.HouseService;
 
 @Controller
 @RequestMapping("/admin/houses")
+
+//初期化
 public class AdminHouseController {
     private final HouseRepository houseRepository;    
     private final HouseService houseService;  
@@ -32,6 +34,8 @@ public class AdminHouseController {
         this.houseRepository = houseRepository; 
         this.houseService = houseService;  
     }	
+    
+    //民宿一覧
     
     @GetMapping
     
@@ -51,6 +55,9 @@ public class AdminHouseController {
         return "admin/houses/index";
         
     }  
+    
+    //民宿詳細画面
+    
     @GetMapping("/{id}")
     public String show(@PathVariable(name = "id") Integer id, Model model) {
         House house = houseRepository.getReferenceById(id);
@@ -61,11 +68,16 @@ public class AdminHouseController {
         
     }    
     
+  //フォーム画面
+    
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("houseRegisterForm", new HouseRegisterForm());
         return "admin/houses/register";
     }    
+    
+    //フォーム画面の内容送信
+    
     @PostMapping("/create")
     public String create(@ModelAttribute @Validated HouseRegisterForm houseRegisterForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {        
         if (bindingResult.hasErrors()) {
@@ -77,6 +89,8 @@ public class AdminHouseController {
         
         return "redirect:/admin/houses";
     }    
+    
+  //フォームを編集する
     
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable(name = "id") Integer id, Model model) {
@@ -90,6 +104,8 @@ public class AdminHouseController {
         return "admin/houses/edit";
     }    
     
+  //フォームを更新する
+    
     @PostMapping("/{id}/update")
     public String update(@ModelAttribute @Validated HouseEditForm houseEditForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {        
         if (bindingResult.hasErrors()) {
@@ -101,6 +117,8 @@ public class AdminHouseController {
         
         return "redirect:/admin/houses";
     }    
+    
+  //民宿データを削除する
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {        
         houseRepository.deleteById(id);

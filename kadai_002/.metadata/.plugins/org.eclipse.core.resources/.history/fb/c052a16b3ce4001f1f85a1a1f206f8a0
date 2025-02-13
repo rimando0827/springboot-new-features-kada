@@ -1,9 +1,0 @@
-package com.example.samuraitravel.form;
-
-import lombok.Data;
-
-@Data
-public class ReviewForm {
-	@min()
-	private Integer 
-}

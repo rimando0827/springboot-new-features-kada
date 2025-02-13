@@ -7,33 +7,39 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.entity.Review;
 import com.example.samuraitravel.form.ReservationInputForm;
-import com.example.samuraitravel.form.ReviewInputForm;
+import com.example.samuraitravel.form.ReviewEditForm;
+import com.example.samuraitravel.form.ReviewRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.repository.ReviewRepository;
-
-import jakarta.validation.Valid;
+import com.example.samuraitravel.service.ReviewService;
 
 @Controller
 @RequestMapping("/houses")
 public class HouseController {
     private final HouseRepository houseRepository;   
     private final ReviewRepository reviewRepository;
+    private final ReviewService reviewService;
     
-    public HouseController(HouseRepository houseRepository,ReviewRepository reviewRepository) {
+    public HouseController(HouseRepository houseRepository,ReviewRepository reviewRepository,ReviewService reviewService) {
         this.houseRepository = houseRepository;
         this.reviewRepository = reviewRepository;
+        this.reviewService = reviewService;
     }     
   
+    //一覧ページ
+    
     @GetMapping
     public String index(@RequestParam(name = "keyword", required = false) String keyword,
                         @RequestParam(name = "area", required = false) String area,
@@ -83,24 +89,73 @@ public class HouseController {
         return "houses/index";
     }
     
+    //民宿詳細ページ
+    
     @GetMapping("/{id}")
-    public String show(@PathVariable(name = "id") Integer id, Model model) {
+    public String show(@PathVariable(name = "id")  Integer id, Model model) {
         House house = houseRepository.getReferenceById(id);
+        
         
         model.addAttribute("house", house);     
         model.addAttribute("reservationInputForm", new ReservationInputForm());
-     
+        model.addAttribute("reviewForm", new ReviewRegisterForm());
         
         return "houses/show";
     }    
     
+    @GetMapping("/{id}/newReviews")
+    public String edit(@PathVariable(name="id") Integer id,Model model) {
+    	Review review = reviewRepository.getReferenceById(id);
+    	ReviewEditForm reviewEditForm =new ReviewEditForm(review.getId(),review.getScore(),review.getContent() );
+    	
+    	model.addAttribute("reviewEditForm",reviewEditForm);
+    	
+    	return "house/newReviews";
+    }
+    
+    @PostMapping("/{id}update")
+    public String update(@ModelAttribute @Validated ReviewEditForm reviewEditForm, BindingResult bindingResult ) {
+    	if(bindingResult.hasErrors()) {
+    		return "houses/edit";
+    	}
+    	
+    	return "houses/{id}";
+    }
+    
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable(name="id") Integer id ,RedirectAttributes redirectAttributes) {
+    	reviewRepository.deleteById(id);
+    	
+    	redirectAttributes.addFlashAttribute("successMessage","レビューを削除しました");
+    	
+    	return "redirect:/houses/show";
+    	
+    }
+    
+    /*
+    //レビュー作成
+    
+    @GetMapping("/{id}/review")
+    public String review(Model model) {
+    	model.addAttribute("reviewForm", new ReviewRegisterForm());
+    	
+    	return "houses/{id}/review";
+        
+        
+    }
+    
+    //レビュー作成ページ
     @GetMapping("/{id}/review/new")
-    public String newReview(@PathVariable Integer id, Model model) {
-        model.addAttribute("houseId", id);
-        model.addAttribute("reviewForm", new ReviewInputForm());
-        return "reviews/new";
+    public String create(@ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+        return "houses/{id}/review/new";
+    }
+        reviewService.create(reviewRegisterForm);
+        return "houses/show";
+        
     }
 
+    /*
     @PostMapping("/{id}/review")
     public String saveReview(@PathVariable Integer id, @ModelAttribute @Valid ReviewInputForm form, BindingResult result) {
         if (result.hasErrors()) {
@@ -109,10 +164,13 @@ public class HouseController {
         House house = houseRepository.findById(id).orElseThrow();
         Review review = new Review();
         review.setHouse(house);
-        review.setUser(getAuthenticatedUser()); // 認証されたユーザー取得メソッド
+        review.setUser(form.getAuthenticatedUser()); // 認証されたユーザー取得メソッド
         review.setScore(form.getSelectedScore());
         review.setContent(form.getContent());
         reviewRepository.save(review);
         return "redirect:/houses/" + id;
     }
+    
+    */
+   
 }

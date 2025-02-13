@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmins:th="https://www.thymeleaf.org" xmins:sec="http://www.thymeleaf.org/extras/sping-security">
+	<head>
+		<div th:replace="~[fragment::mata]"></div>
+		<div th:replace="~[fragment::styles]"></div>
+		
+		<title/*ここにID必要*/>レビュー投稿ページ</title>
+	</head>
+	
+	<body>
+		<form method="post" th:action="@[/input/create]" th:object="$[ReviewForm]">
+			<label for="dropdown">選択してください</label>
+			<select id="dropdown" th:field="*[selectedValue]">
+				<option th:each="option : $[ReviewForm.options]" value="$[option]" th:text="$[option]">
+					オプション
+				</option>
+			</select>
+			
+			<input type="textarea" name="content" th:field="*[content]" placeholder="レビュー内容を入力してください">
+			
+			
+			<button type="submit">送信</button>
+		</form>
+		
+		 <!-- フッター -->
+           <div th:replace="~{fragment :: footer}"></div>
+       </div>    
+       
+       <div th:replace="~{fragment :: scripts}"></div>  
+       <script th:src="@{/js/preview.js}"></script>  
+	</body>
+	
+</html>

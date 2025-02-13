@@ -1,19 +1,17 @@
 package com.example.samuraitravel.form;
+
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
 public class ReviewRegisterForm {
-	//reviewテーブルへの登録に利用するForm
-    private Integer review_id;
+	
+	
+    @NotBlank(message = "評価を５段階で再選択してください")
+    private int score;
     
-    private Integer house_id;    
-        
-    private Integer user_id;    
-        
-    private String score;    
-    
+    @NotBlank(message = "レビュー内容を再入力してください")
     private String content;
-    
-    
+
     
 }
