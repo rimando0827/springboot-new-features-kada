@@ -13,22 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.form.ReservationInputForm;
-import com.example.samuraitravel.form.ReviewRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.repository.ReviewRepository;
-import com.example.samuraitravel.service.ReviewService;
 
 @Controller
 @RequestMapping("/houses")
 public class HouseController {
     private final HouseRepository houseRepository;   
-    private final ReviewRepository reviewRepository;
-    private final ReviewService reviewService;
+  
     
-    public HouseController(HouseRepository houseRepository,ReviewRepository reviewRepository,ReviewService reviewService) {
+    public HouseController(HouseRepository houseRepository,ReviewRepository reviewRepository) {
         this.houseRepository = houseRepository;
-        this.reviewRepository = reviewRepository;
-        this.reviewService = reviewService;
+       
     }     
   
     //一覧ページ
@@ -91,7 +87,7 @@ public class HouseController {
         
         model.addAttribute("house", house);     
         model.addAttribute("reservationInputForm", new ReservationInputForm());
-        model.addAttribute("reviewForm", new ReviewRegisterForm());
+        
         
         return "houses/show";
     }    

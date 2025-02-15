@@ -47,14 +47,14 @@ public class ReviewController {
     public String index(@PathVariable(name="houseId") Integer houseId ,@PageableDefault(page=0,size=10,sort="id") Pageable pageable,Model model ) {
     Page<Review> reviewPage = reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId,pageable);
     
-    return "houses/{houseId}/reviews/index";
+    return "houses/review/index";
     }
     
 	@GetMapping("/register")
 	public String register(@PathVariable(name="houseId") Integer houseId , Model model) {
 		model.addAttribute("reviewRegisterForm", new HouseRegisterForm());
 		
-		return "houses/{houseId}/reviews/register";
+		return "houses/review/register";
 		
 	}
 	
@@ -66,7 +66,7 @@ public class ReviewController {
         return "/create";
     }
         reviewService.create(reviewRegisterForm);
-        return "houses/{houseId}";
+        return "houses/show";
 	}
 	
 	
@@ -83,7 +83,7 @@ public class ReviewController {
    	 model.addAttribute("reviewEditForm",reviewEditForm);
    	 
    	 
-   	 return "houses/{houseId}/reviews/edit";
+   	 return "houses/reviews/edit";
   }
 	@PostMapping("/{reviewId}/update")
 	public String update(@PathVariable(name= "houseId") Integer houseId,
@@ -93,7 +93,7 @@ public class ReviewController {
 			             Model model) {
 		if(bindingResult.hasErrors()) {
 			
-    		return "houses/{houseId}/reviews/edit";
+    		return "houses/reviews/edit";
     	}
     	
     	return "/";
@@ -106,7 +106,7 @@ public class ReviewController {
     	
     	redirectAttributes.addFlashAttribute("successMessage","レビューを削除しました");
     	
-    	return "redirect: /houses/{houseId}/reviews/index";
+    	return "redirect: /houses/reviews/index";
 	}
 	
     
