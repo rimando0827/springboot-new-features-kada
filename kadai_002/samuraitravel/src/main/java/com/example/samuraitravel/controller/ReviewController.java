@@ -28,7 +28,7 @@ import com.example.samuraitravel.security.UserDetailsImpl;
 import com.example.samuraitravel.service.ReviewService;
 
 @Controller
-@RequestMapping("/houses/{houseId}/reivews")
+@RequestMapping("/houses/{houseId}/reviews")
 public class ReviewController {
 
 	private ReviewService reviewService;
@@ -47,14 +47,14 @@ public class ReviewController {
     public String index(@PathVariable(name="houseId") Integer houseId ,@PageableDefault(page=0,size=10,sort="id") Pageable pageable,Model model ) {
     Page<Review> reviewPage = reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId,pageable);
     
-    return "/index";
+    return "houses/{houseId}/reviews/index";
     }
     
 	@GetMapping("/register")
 	public String register(@PathVariable(name="houseId") Integer houseId , Model model) {
 		model.addAttribute("reviewRegisterForm", new HouseRegisterForm());
 		
-		return "/register";
+		return "houses/{houseId}/reviews/register";
 		
 	}
 	
@@ -83,7 +83,7 @@ public class ReviewController {
    	 model.addAttribute("reviewEditForm",reviewEditForm);
    	 
    	 
-   	 return "edit";
+   	 return "houses/{houseId}/reviews/edit";
   }
 	@PostMapping("/{reviewId}/update")
 	public String update(@PathVariable(name= "houseId") Integer houseId,
@@ -93,7 +93,7 @@ public class ReviewController {
 			             Model model) {
 		if(bindingResult.hasErrors()) {
 			
-    		return "/edit";
+    		return "houses/{houseId}/reviews/edit";
     	}
     	
     	return "/";
@@ -106,7 +106,7 @@ public class ReviewController {
     	
     	redirectAttributes.addFlashAttribute("successMessage","レビューを削除しました");
     	
-    	return "redirect:/index";
+    	return "redirect: /houses/{houseId}/reviews/index";
 	}
 	
     
