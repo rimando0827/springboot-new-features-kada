@@ -11,6 +11,7 @@ import com.example.samuraitravel.repository.ReviewRepository;
 import com.example.samuraitravel.repository.UserRepository;
 
 @Service
+
 //@Transactionalを書くところ
 public class ReviewService {
 	//reviewテーブルの値をを利用・登録する
@@ -41,6 +42,18 @@ public class ReviewService {
 	    //フォームの入力内容を受け取る
 	    review.setScore(reviewRegisterForm.getScore());
 	    review.setContent(reviewRegisterForm.getContent());
+
+	    reviewRepository.save(review);
+	}
+	
+	@Transactional
+	//レビューの編集処理を行うupdate()メソッドを定義　※コントローラから呼び出して使う
+	public void update(ReviewEditForm reviewEditForm) {
+	    Review review = reviewRepository.getReferenceById(reviewEditForm.getId());
+       
+	    //フォームの入力内容を受け取る
+	    review.setScore(reviewEditForm.getScore());
+	    review.setContent(reviewEditForm.getContent());
 
 	    reviewRepository.save(review);
 	}
@@ -88,15 +101,5 @@ public class ReviewService {
     }
     
     
-	@Transactional
-	//レビューの編集処理を行うupdate()メソッドを定義　※コントローラから呼び出して使う
-	public void update(ReviewEditForm reviewEditForm) {
-	    Review review = reviewRepository.getReferenceById(reviewEditForm.getId());
-       
-	    //フォームの入力内容を受け取る
-	    review.setScore(reviewEditForm.getScore());
-	    review.setContent(reviewEditForm.getContent());
-
-	    reviewRepository.save(review);
-	}
+	
 }

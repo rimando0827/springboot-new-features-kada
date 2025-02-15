@@ -2,6 +2,10 @@ package com.example.samuraitravel.controller;
 
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,17 +13,22 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.entity.Review;
+import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.form.ReviewEditForm;
 import com.example.samuraitravel.form.ReviewRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
 import com.example.samuraitravel.repository.ReviewRepository;
+import com.example.samuraitravel.security.UserDetailsImpl;
 import com.example.samuraitravel.service.ReviewService;
 
 @Controller
-
+@RequestMapping("/houses/{houseId}/reivews")
 public class ReviewController {
 
 	private ReviewService reviewService;
@@ -34,19 +43,35 @@ public class ReviewController {
 		this.houseRepository = houseRepository;
 		this.reviewRepository = reviewRepository;
 	}
+    @GetMapping
+    public String index(@PathVariable(name="houseId") Integer houseId ,@PageableDefault(page=0,size=10,sort="id") Pageable pageable,Model model ) {
+    Page<Review> reviewPage = reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId,pageable);
     
-	@GetMapping("/houses/{id}/review/create")
-    public String create(@ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult) {
+    return "/index";
+    }
+    
+	@GetMapping("/register")
+	public String register(@PathVariable(name="houseId") Integer houseId , Model model) {
+		model.addAttribute("reviewRegisterForm", new HouseRegisterForm());
+		
+		return "/register";
+		
+	}
+	
+	@PostMapping("/create")
+    public String create(@PathVariable(name="houseId") Integer houseId,
+    		             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
+    		             @ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
-        return "houses/{id}/review/new";
+        return "/create";
     }
         reviewService.create(reviewRegisterForm);
-        return "houses/show";
+        return "houses/{houseId}";
 	}
 	
 	
-	@GetMapping("/houses/{Id}/review/{Id}/edit")
-    public String edit(      @PathVariable(name="houseId") Integer houseId,
+	@GetMapping("/{reviewId}/edit")
+    public String edit(@PathVariable(name="houseId") Integer houseId,
             @PathVariable(name="reviewId") Integer reviewId, 
             Model model) {
        House house = houseRepository.getReferenceById(houseId);
@@ -58,8 +83,31 @@ public class ReviewController {
    	 model.addAttribute("reviewEditForm",reviewEditForm);
    	 
    	 
-   	 return "review/edit";
+   	 return "edit";
   }
+	@PostMapping("/{reviewId}/update")
+	public String update(@PathVariable(name= "houseId") Integer houseId,
+			             @PathVariable(name= "reviewId") Integer reviewId,
+			             @ModelAttribute @Validated ReviewEditForm reviewEditForm,
+			             BindingResult bindingResult,
+			             Model model) {
+		if(bindingResult.hasErrors()) {
+			
+    		return "/edit";
+    	}
+    	
+    	return "/";
+		
+	}
+	
+	@PostMapping("/{review}/delete")
+	public String delete(@PathVariable(name="reviewId") Integer reviewId, RedirectAttributes redirectAttributes) {
+         reviewRepository.deleteById(reviewId);
+    	
+    	redirectAttributes.addFlashAttribute("successMessage","レビューを削除しました");
+    	
+    	return "redirect:/index";
+	}
 	
     
 }
