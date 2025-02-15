@@ -47,7 +47,7 @@ public class ReviewController {
     public String index(@PathVariable(name="houseId") Integer houseId ,@PageableDefault(page=0,size=10,sort="id") Pageable pageable,Model model ) {
     Page<Review> reviewPage = reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId,pageable);
     
-    return "reviews/index";
+    return "houses/reviews/index";
     }
     
 	@GetMapping("/register")

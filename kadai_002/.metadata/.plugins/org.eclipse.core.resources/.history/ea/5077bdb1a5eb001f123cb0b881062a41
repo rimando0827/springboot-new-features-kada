@@ -47,14 +47,14 @@ public class ReviewController {
     public String index(@PathVariable(name="houseId") Integer houseId ,@PageableDefault(page=0,size=10,sort="id") Pageable pageable,Model model ) {
     Page<Review> reviewPage = reviewRepository.findByHouseIdOrderByCreatedAtDesc(houseId,pageable);
     
-    return "reviews/index";
+    return "houses/review/index";
     }
     
 	@GetMapping("/register")
 	public String register(@PathVariable(name="houseId") Integer houseId , Model model) {
 		model.addAttribute("reviewRegisterForm", new HouseRegisterForm());
 		
-		return "reviews/register";
+		return "review/register";
 		
 	}
 	
@@ -63,7 +63,7 @@ public class ReviewController {
     		             @AuthenticationPrincipal UserDetailsImpl userDetailsImpl,
     		             @ModelAttribute @Validated ReviewRegisterForm reviewRegisterForm, BindingResult bindingResult, Model model) {
         if(bindingResult.hasErrors()) {
-        return "reviews/register";
+        return "/create";
     }
         reviewService.create(reviewRegisterForm);
         return "houses/show";
