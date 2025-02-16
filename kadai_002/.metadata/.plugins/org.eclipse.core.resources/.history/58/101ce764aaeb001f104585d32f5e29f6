@@ -22,7 +22,7 @@
 	
 	<h1 class="mb-4 text-center">レビュー一覧</h1>    
 	
-		<form method="post" th:action="@[/houses/{houseId}/reviews/create]" th:object="${reviewRegisterForm}" enctype="multipart/form-data">
+		<form method="post" th:action="@[/{reviewId}/create]" th:object="${reviewRegisterForm}" enctype="multipart/form-data">
 			
 			<select th:if="${#fields.hasErrors('score')}" class="form-control form-select" th:field="*{score}">
 				<option value="" hidden>選択してください</option>

@@ -26,11 +26,11 @@
 			
 			<select th:if="${#fields.hasErrors('score')}" class="form-control form-select" th:field="*{score}">
 				<option value="" hidden>選択してください</option>
-				 <option value="★" th:selected="${score == '1'}">★</option>
-				 <option value="★★" th:selected="${score == '2'}">★★</option>
-				 <option value="★★★" th:selected="${score == '3'}">★★★</option>
-				 <option value="★★★★" th:selected="${score == '4'}">★★★★</option>
-				 <option value="★★★★★" th:selected="${score == '5'}">★★★★★</option>
+				 <option value="★" >★</option>
+				 <option value="★★">★★</option>
+				 <option value="★★★">★★★</option>
+				 <option value="★★★★" >★★★★</option>
+				 <option value="★★★★★">★★★★★</option>
 			</select>
 			
 			<label type="textarea" name="content" th:field="*{content}" placeholder="レビュー内容を入力してください"></label>
