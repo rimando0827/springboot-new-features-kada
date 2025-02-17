@@ -105,19 +105,22 @@ public class ReviewController {
 		model.addAttribute("review", review);
 		model.addAttribute("reviewEditForm", reviewEditForm);
 
-		return "houses/reviews/edit";
+		return "reviews/edit";
 	}
 
 	@PostMapping("/{reviewId}/update")
 	public String update(@PathVariable(name = "houseId") Integer houseId,
 			@PathVariable(name = "reviewId") Integer reviewId,
 			@ModelAttribute @Validated ReviewEditForm reviewEditForm,
-			BindingResult bindingResult,
+			BindingResult bindingResult,RedirectAttributes redirectAttributes ,
 			Model model) {
 		if (bindingResult.hasErrors()) {
 
-			return "houses/reviews/edit";
+			return "reviews/edit";
 		}
+		
+		
+		
 
 		return "/";
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmins:th="https://www.thymeleaf.org" xmins:sec="http://www.thymeleaf.org/extras/sping-security">
+	<head>
+		<div th:replace="~{fragment :: meta}"></div>
+		<div th:replace="~{fragment :: styles}"></div>
+		
+		<title>レビュー編集ページ</title>
+	</head>
+	
+	<body>
+	 <!-- ヘッダー -->
+           <div th:replace="~{fragment :: header}"></div>
+           
+             <nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                               <ol class="breadcrumb mb-0"> 
+                                   <li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+                                   <li class="breadcrumb-item"><a th:href="@{/houses}">民宿一覧</a></li>
+                                   <li class="breadcrumb-item"><a th:href="@{/houses/show}">民宿詳細</a></li>                                                           
+                                   <li class="breadcrumb-item active" aria-current="page">レビュー編集</li>
+                               </ol>
+                           </nav> 
+	
+	<h1 class="mb-4 text-center">レビュー編集</h1>    
+	
+		<form method="post" th:action="@{/houses/__${house.getId()}__/reviews/${review.getId()}/updete}" th:object="${reviewEditForm}" class="w-100">
+			
+			<select class="form-control form-select" th:field="*{score}">
+				<option value="" hidden>選択してください</option>
+				 <option value="1" th:selected="${score == '1'}">★</option>
+				 <option value="2" th:selected="${score == '2'}">★★</option>
+				 <option value="3" th:selected="${score == '3'}">★★★</option>
+				 <option value="4" th:selected="${score == '4'}">★★★★</option>
+				 <option value="5" th:selected="${score == '5'}">★★★★★</option>
+			</select>
+			
+			<input type="textarea" name="content" th:field="*{content}" >
+			
+			
+			<button type="submit">更新</button>
+		</form>
+		
+		 <!-- フッター -->
+           <div th:replace="~{fragment :: footer}"></div>
+       </div>    
+       
+       <div th:replace="~{fragment :: scripts}"></div>  
+       <script th:src="@{/js/preview.js}"></script>  
+	</body>
+	
+</html>
