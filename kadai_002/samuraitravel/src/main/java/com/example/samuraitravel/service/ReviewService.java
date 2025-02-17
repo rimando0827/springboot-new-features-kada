@@ -3,7 +3,9 @@ package com.example.samuraitravel.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.samuraitravel.entity.House;
 import com.example.samuraitravel.entity.Review;
+import com.example.samuraitravel.entity.User;
 import com.example.samuraitravel.form.ReviewEditForm;
 import com.example.samuraitravel.form.ReviewRegisterForm;
 import com.example.samuraitravel.repository.HouseRepository;
@@ -38,8 +40,14 @@ public class ReviewService {
 	//レビューの登録処理を行うcreate()メソッドを定義　※コントローラから呼び出して使う
 	public void create(ReviewRegisterForm reviewRegisterForm) {
 	    Review review = new Review();
-        
+	    
+	    //reviewRegisterFormから受け取った民宿ID,ユーザーIDを各エンティティデータと照らし合わせる
+	    House house = houseRepository.getReferenceById(reviewRegisterForm.getHouseId());
+	    User user = userRepository.getReferenceById(reviewRegisterForm.getUserId());
+	    
 	    //フォームの入力内容を受け取る
+	    review.setHouse(house);
+	    review.setUser(user);
 	    review.setScore(reviewRegisterForm.getScore());
 	    review.setContent(reviewRegisterForm.getContent());
 

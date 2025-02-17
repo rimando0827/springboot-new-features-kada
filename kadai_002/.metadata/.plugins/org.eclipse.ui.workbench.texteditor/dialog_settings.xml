@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="house"/>
 			<item value="th:action"/>
 			<item value="isEmpty"/>
 			<item value="/houses/__${house.getId()}__/reservations/input"/>

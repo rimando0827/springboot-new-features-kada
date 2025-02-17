@@ -1,6 +1,5 @@
 package com.example.samuraitravel.form;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,15 +7,17 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReviewEditForm {
-	@NotNull
-	private Integer id;
 	
 	@NotNull
-	@Min(value =1)
-    private int score;
-    
-	@NotNull
-    private String content;
+	private Integer id;
 
-    
+	private int houseId;
+
+	private int userId;
+
+	private int score;
+
+	@NotNull(message = "レビュー内容を再入力してください")
+	private String content;
+
 }

@@ -177,7 +177,7 @@
 									<div sec:authorize="isAuthenticated()" th:unless="${hasUserAlreadyReviewed}"
 										class="row justify-content-center mb-4">
 										<div class="col-lg-4">
-											<a th:href="@{/houses/{id}/reviews/register(${house.Id})}"
+											<a th:href="@{/houses/__${house.getId()}__/reviews/register}"
 												class="btn text-white shadow-sm w-100 samuraitravel-btn">レビューを投稿する</a>
 										</div>
 									</div>

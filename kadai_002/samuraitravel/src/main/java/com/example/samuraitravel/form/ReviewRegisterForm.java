@@ -6,8 +6,11 @@ import lombok.Data;
 @Data
 public class ReviewRegisterForm {
 	
+	private int houseId;
 	
-    @NotBlank(message = "評価を５段階で再選択してください")
+	private int userId;
+	
+    //@NotBlank(message = "評価を５段階で再選択してください")
     private int score;
     
     @NotBlank(message = "レビュー内容を再入力してください")

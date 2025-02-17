@@ -20,9 +20,7 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.form.ReviewForm"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.repository.HouseRepository"/>
-    <fullyQualifiedTypeName name="com.example.samuraitravel.repository.UserRepository"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.entity.House"/>
-    <fullyQualifiedTypeName name="com.example.samuraitravel.entity.User"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.repository.ReviewRepository"/>
     <fullyQualifiedTypeName name="com.example.samuraitravel.form.ReviewInputForm"/>
@@ -40,5 +38,8 @@
     <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+    <fullyQualifiedTypeName name="com.example.samuraitravel.entity.User"/>
+    <fullyQualifiedTypeName name="com.example.samuraitravel.repository.UserRepository"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.support.RedirectAttributes"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
 </qualifiedTypeNameHistroy>
