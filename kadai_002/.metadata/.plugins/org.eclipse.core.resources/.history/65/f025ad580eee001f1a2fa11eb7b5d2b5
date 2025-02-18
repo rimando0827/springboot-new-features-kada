@@ -119,13 +119,12 @@ public class ReviewController {
 			return "reviews/edit";
 		}
 		
+		
+		model.addAttribute("house", house);
+		model.addAttribute("review", review);
 
 		reviewEditForm.setHouseId(houseId);
 		reviewEditForm.setId(reviewId);
-		
-		model.addAttribute("house", houseId);
-		model.addAttribute("review", reviewId);
-		
 		reviewService.update(reviewEditForm);
 		
 		// houseId をリダイレクトの際に URL 変数として追加
