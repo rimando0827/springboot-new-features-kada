@@ -57,8 +57,8 @@ public class ReviewService {
 	@Transactional
 	//レビューの編集処理を行うupdate()メソッドを定義　※コントローラから呼び出して使う
 	public void update(ReviewEditForm reviewEditForm) {
+		Review review = reviewRepository.getReferenceById(reviewEditForm.getId());
 		House house = houseRepository.getReferenceById(reviewEditForm.getHouseId());
-	    Review review = reviewRepository.getReferenceById(reviewEditForm.getId());
 	    User user = userRepository.getReferenceById(reviewEditForm.getUserId());
 	    
 	    //フォームの入力内容を受け取る

@@ -86,9 +86,9 @@ public class ReviewController {
 	    // houseId をリダイレクトの際に URL 変数として追加
 	    redirectAttributes.addAttribute("houseId", houseId);
 		
-		redirectAttributes.addFlashAttribute("reviewRegisterForm",reviewRegisterForm);
+		redirectAttributes.addFlashAttribute("successMessage","レビュー内容を投稿しました。");
 		
-		return "redirect:/houses/{houseId}/reviews/register";
+		return "redirect:/houses/{houseId}/reviews";
 	}
 
 	@GetMapping("/{reviewId}/edit")
@@ -122,7 +122,11 @@ public class ReviewController {
 		reviewEditForm.setHouseId(houseId);
 		reviewEditForm.setId(reviewId);
 		reviewService.update(reviewEditForm);
-		redirectAttributes.addFlashAttribute("reviewEditForm",reviewEditForm);
+		
+		// houseId をリダイレクトの際に URL 変数として追加
+		redirectAttributes.addAttribute("houseId" , houseId);
+		redirectAttributes.addAttribute("reviewId" , reviewId);
+		redirectAttributes.addFlashAttribute("successMessage","レビュー内容を編集しました。");
 		
 
 		return "redirect:/houses/{houseId}/reviews";
