@@ -116,7 +116,7 @@ public class ReviewController {
 			Model model) {
 		if (bindingResult.hasErrors()) {
 
-			return "redirect:/houses/{houseId}/reviews";
+			return "reviews/edit";
 		}
 		
 		reviewEditForm.setHouseId(houseId);
@@ -125,7 +125,7 @@ public class ReviewController {
 		redirectAttributes.addFlashAttribute("reviewEditForm",reviewEditForm);
 		
 
-		return "/";
+		return "redirect:/houses/{houseId}/reviews";
 
 	}
 
