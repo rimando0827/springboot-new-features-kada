@@ -120,7 +120,6 @@ public class ReviewController {
 		}
 		
 		reviewEditForm.setHouseId(houseId);
-		reviewEditForm.setId(reviewId);
 		reviewService.update(reviewEditForm);
 		redirectAttributes.addFlashAttribute("reviewEditForm",reviewEditForm);
 		

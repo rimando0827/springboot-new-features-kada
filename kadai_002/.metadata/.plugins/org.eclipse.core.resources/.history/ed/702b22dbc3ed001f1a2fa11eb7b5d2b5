@@ -59,11 +59,9 @@ public class ReviewService {
 	public void update(ReviewEditForm reviewEditForm) {
 		House house = houseRepository.getReferenceById(reviewEditForm.getHouseId());
 	    Review review = reviewRepository.getReferenceById(reviewEditForm.getId());
-	    User user = userRepository.getReferenceById(reviewEditForm.getUserId());
+	    
 	    
 	    //フォームの入力内容を受け取る
-	    review.setHouse(house);
-	    review.setUser(user);
 	    review.setScore(reviewEditForm.getScore());
 	    review.setContent(reviewEditForm.getContent());
 

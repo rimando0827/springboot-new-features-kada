@@ -119,9 +119,6 @@ public class ReviewController {
 			return "redirect:/houses/{houseId}/reviews";
 		}
 		
-		reviewEditForm.setHouseId(houseId);
-		reviewEditForm.setId(reviewId);
-		reviewService.update(reviewEditForm);
 		redirectAttributes.addFlashAttribute("reviewEditForm",reviewEditForm);
 		
 

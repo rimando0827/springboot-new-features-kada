@@ -62,8 +62,6 @@ public class ReviewService {
 	    User user = userRepository.getReferenceById(reviewEditForm.getUserId());
 	    
 	    //フォームの入力内容を受け取る
-	    review.setHouse(house);
-	    review.setUser(user);
 	    review.setScore(reviewEditForm.getScore());
 	    review.setContent(reviewEditForm.getContent());
 
