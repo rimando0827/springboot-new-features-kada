@@ -116,10 +116,10 @@ public class ReviewController {
 			Model model) {
 		if (bindingResult.hasErrors()) {
 
-			return "reviews/edit";
+			return "redirect:/houses/{houseId}/reviews";
 		}
 		
-		
+		redirectAttributes.addFlashAttribute("reviewEditForm",reviewEditForm);
 		
 
 		return "/";
