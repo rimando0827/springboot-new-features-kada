@@ -139,13 +139,11 @@ public class ReviewController {
 	}
 
 	@PostMapping("/{reviewId}/delete")
-	public String delete(@PathVariable(name = "reviewId") Integer reviewId,@PathVariable(name = "houseId") Integer houseId, RedirectAttributes redirectAttributes,Model model) {
-		House house = houseRepository.getReferenceById(houseId);
+	public String delete(@PathVariable(name = "reviewId") Integer reviewId, RedirectAttributes redirectAttributes) {
 		Review review = reviewRepository.getReferenceById(reviewId);
 		reviewRepository.deleteById(reviewId);
 		
-		model.addAttribute("house", house);
-		model.addAttribute("review", review);
+		
 		
 		redirectAttributes.addFlashAttribute("successMessage", "レビューを削除しました");
 

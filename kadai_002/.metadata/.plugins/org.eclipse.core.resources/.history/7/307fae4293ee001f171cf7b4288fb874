@@ -24,7 +24,6 @@
 	
 		<form method="post" th:action="@{/houses/__${house.getId()}__/reviews/__${review.getId()}__/update}" th:object="${reviewEditForm}" class="w-100">
 			<input type="hidden" th:field="*{id}">
-			<input type="hidden" th:field="*{userId}">
 			
 			
 		<select class="form-select samuraitravel-star" th:field="*{score}">
